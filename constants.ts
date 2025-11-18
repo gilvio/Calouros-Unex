@@ -1,4 +1,5 @@
-import { Course, AppEvent, FAQItem, ChatMessage, User, Role, Page } from './types';
+
+import { Course, AppEvent, FAQItem, ChatMessage, User, Role, Page, Classmate } from './types';
 
 export const MOCK_USER: User = {
   id: 'user-1',
@@ -8,6 +9,14 @@ export const MOCK_USER: User = {
   course: 'Enfermagem',
   avatarUrl: 'https://picsum.photos/seed/user1/100/100',
 };
+
+export const CLASSMATES: Classmate[] = [
+    { id: 'user-2', name: 'Carlos Silva', avatarUrl: 'https://picsum.photos/seed/user2/100/100', status: 'online' },
+    { id: 'user-3', name: 'Mariana Costa', avatarUrl: 'https://picsum.photos/seed/user3/100/100', status: 'busy' },
+    { id: 'user-4', name: 'Pedro Santos', avatarUrl: 'https://picsum.photos/seed/user4/100/100', status: 'offline' },
+    { id: 'user-5', name: 'Julia Oliveira', avatarUrl: 'https://picsum.photos/seed/user5/100/100', status: 'online' },
+    { id: 'user-6', name: 'Lucas Ferreira', avatarUrl: 'https://picsum.photos/seed/user6/100/100', status: 'offline' },
+];
 
 export const COURSES: Course[] = [
   {
@@ -30,6 +39,29 @@ export const COURSES: Course[] = [
     materials: [
         { title: 'Plano de Ensino - Anatomia', url: '#' },
         { title: 'Slide Aula 1 - Bioquímica', url: '#' },
+    ],
+    books: [
+        {
+            title: 'Atlas de Anatomia Humana',
+            author: 'Frank H. Netter',
+            coverUrl: 'https://picsum.photos/seed/book_anat/300/450',
+            description: 'O atlas de anatomia mais vendido e elogiado do mundo, trazendo ilustrações detalhadas do corpo humano.',
+            link: '#'
+        },
+        {
+            title: 'Tratado de Enfermagem Médico-Cirúrgica',
+            author: 'Brunner & Suddarth',
+            coverUrl: 'https://picsum.photos/seed/book_enf/300/450',
+            description: 'Referência absoluta na área, abrangendo os cuidados de saúde em ambientes hospitalares.',
+            link: '#'
+        },
+        {
+            title: 'Fundamentos de Enfermagem',
+            author: 'Potter & Perry',
+            coverUrl: 'https://picsum.photos/seed/book_fund/300/450',
+            description: 'Uma abordagem abrangente para os conceitos fundamentais e habilidades clínicas.',
+            link: '#'
+        }
     ]
   },
   {
@@ -51,6 +83,29 @@ export const COURSES: Course[] = [
     materials: [
         { title: 'E-book: Entendendo Algoritmos', url: '#' },
         { title: 'Tutorial Instalação PostgreSQL', url: '#' },
+    ],
+    books: [
+        {
+            title: 'Código Limpo',
+            author: 'Robert C. Martin',
+            coverUrl: 'https://picsum.photos/seed/book_code/300/450',
+            description: 'Habilidades práticas do Agile Software. Leitura obrigatória para qualquer desenvolvedor.',
+            link: '#'
+        },
+        {
+            title: 'Entendendo Algoritmos',
+            author: 'Aditya Y. Bhargava',
+            coverUrl: 'https://picsum.photos/seed/book_algo/300/450',
+            description: 'Um guia ilustrado para programadores e outros curiosos sobre o funcionamento de algoritmos.',
+            link: '#'
+        },
+        {
+            title: 'Engenharia de Software Moderna',
+            author: 'Marco Tulio Valente',
+            coverUrl: 'https://picsum.photos/seed/book_eng/300/450',
+            description: 'Princípios e práticas de desenvolvimento de software com foco em produtividade e qualidade.',
+            link: '#'
+        }
     ]
   }
 ];
@@ -71,7 +126,19 @@ export const FAQS: FAQItem[] = [
 export const COMMUNITY_CHAT_MESSAGES: ChatMessage[] = [
     { id: 'msg-c-1', sender: { id: 'user-2', name: 'Carlos', avatarUrl: 'https://picsum.photos/seed/user2/40/40' }, text: 'Pessoal, alguém sabe onde encontro o material da aula de ontem?', timestamp: new Date(new Date().getTime() - 10 * 60000) },
     { id: 'msg-c-2', sender: { id: 'user-3', name: 'Mariana', avatarUrl: 'https://picsum.photos/seed/user3/40/40' }, text: 'O professor postou no Blackboard, na pasta da Aula 5.', timestamp: new Date(new Date().getTime() - 8 * 60000) },
-    { id: 'msg-c-3', sender: { id: 'user-1', name: 'Ana Bia', avatarUrl: MOCK_USER.avatarUrl }, text: 'Valeu, Mariana! Encontrei aqui.', timestamp: new Date(new Date().getTime() - 5 * 60000) },
+    { 
+        id: 'msg-c-3', 
+        sender: { id: 'user-1', name: 'Ana Bia', avatarUrl: MOCK_USER.avatarUrl }, 
+        text: 'Valeu, Mariana! Achei aqui, é esse arquivo?', 
+        timestamp: new Date(new Date().getTime() - 5 * 60000),
+        attachment: {
+            type: 'document',
+            name: 'Aula_05_Bioquimica.pdf',
+            url: '#',
+            size: '2.4 MB'
+        }
+    },
+    { id: 'msg-c-4', sender: { id: 'user-3', name: 'Mariana', avatarUrl: 'https://picsum.photos/seed/user3/40/40' }, text: 'Isso mesmo!', timestamp: new Date(new Date().getTime() - 2 * 60000) },
 ];
 
 export const SUPPORT_CHAT_MESSAGES: ChatMessage[] = [

@@ -41,6 +41,14 @@ export interface ScheduleItem {
   location: string;
 }
 
+export interface BookRecommendation {
+  title: string;
+  author: string;
+  coverUrl: string;
+  description: string;
+  link: string;
+}
+
 export interface Course {
   id: string;
   name: string;
@@ -53,6 +61,7 @@ export interface Course {
   professors: Professor[];
   schedule: ScheduleItem[];
   materials: { title: string; url: string; }[];
+  books: BookRecommendation[];
 }
 
 export interface AppEvent {
@@ -70,11 +79,26 @@ export interface FAQItem {
   answer: string;
 }
 
+export interface ChatAttachment {
+    type: 'image' | 'document';
+    url: string;
+    name: string;
+    size?: string;
+}
+
 export interface ChatMessage {
   id: string;
   sender: Pick<User, 'id' | 'name' | 'avatarUrl'>;
   text: string;
   timestamp: Date;
+  attachment?: ChatAttachment;
+}
+
+export interface Classmate {
+    id: string;
+    name: string;
+    avatarUrl: string;
+    status: 'online' | 'offline' | 'busy';
 }
 
 export enum Page {

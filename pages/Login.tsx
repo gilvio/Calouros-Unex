@@ -40,32 +40,32 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-neutral-light p-4">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-2xl shadow-lg">
+    <div className="flex items-center justify-center min-h-screen bg-neutral-light dark:bg-neutral-900 p-4">
+      <div className="w-full max-w-md p-8 space-y-8 bg-white dark:bg-neutral-800 rounded-2xl shadow-lg">
         <div className="text-center">
           <img src={logoSrc} alt="UNEX Logo" className="w-16 h-16 mx-auto mb-4" />
-          <h1 className="text-4xl font-bold text-primary">UNEX</h1>
-          <h2 className="mt-2 text-2xl font-semibold text-neutral-dark">Bem-vindo, Calouro!</h2>
-          <p className="mt-2 text-gray-600">Faça login para começar sua jornada.</p>
+          <h1 className="text-4xl font-bold text-primary dark:text-blue-400">UNEX</h1>
+          <h2 className="mt-2 text-2xl font-semibold text-neutral-dark dark:text-white">Bem-vindo, Calouro!</h2>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">Faça login para começar sua jornada.</p>
         </div>
         
         <button 
           onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center py-3 px-4 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+          className="w-full flex items-center justify-center py-3 px-4 text-sm font-medium rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-neutral-700 dark:text-white transition-colors"
         >
           <GoogleIcon />
           Entrar com Google
         </button>
 
         <div className="flex items-center justify-center space-x-2">
-          <span className="h-px w-full bg-gray-200"></span>
+          <span className="h-px w-full bg-gray-200 dark:bg-gray-700"></span>
           <span className="text-sm text-gray-400">OU</span>
-          <span className="h-px w-full bg-gray-200"></span>
+          <span className="h-px w-full bg-gray-200 dark:bg-gray-700"></span>
         </div>
 
         <form className="space-y-6" onSubmit={handleEmailLogin}>
           <div>
-            <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
+            <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
             <input
               id="email"
               name="email"
@@ -74,13 +74,13 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 bg-white dark:bg-neutral-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 dark:text-white focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm"
               placeholder="seuemail@unex.edu.br"
             />
           </div>
 
           <div>
-            <label htmlFor="password-" className="text-sm font-medium text-gray-700">Senha</label>
+            <label htmlFor="password-" className="text-sm font-medium text-gray-700 dark:text-gray-300">Senha</label>
             <input
               id="password"
               name="password"
@@ -88,21 +88,20 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
               autoComplete="current-password"
               required
               value={password}
-              // Fix: Corrected typo from `e.taget.value` to `e.target.value`.
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 bg-white dark:bg-neutral-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 dark:text-white focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm"
               placeholder="••••••••"
             />
           </div>
           
           <div className="text-right text-sm">
-            <a href="#" className="font-medium text-secondary hover:text-primary">Esqueceu a senha?</a>
+            <a href="#" className="font-medium text-secondary dark:text-blue-400 hover:text-primary dark:hover:text-blue-300">Esqueceu a senha?</a>
           </div>
 
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary dark:bg-blue-600 hover:bg-blue-800 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
             >
               Entrar
             </button>
@@ -110,10 +109,10 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
         </form>
         
         <div className="mt-6">
-            <label className="flex items-center text-sm text-gray-600">
+            <label className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                 <input type="checkbox" className="h-4 w-4 text-primary focus:ring-secondary border-gray-300 rounded" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />
                 <span className="ml-2">
-                    Eu li e concordo com os <a href="#" className="font-medium text-secondary hover:underline">Termos de Uso</a> e a <a href="#" className="font-medium text-secondary hover:underline">Política de Privacidade</a>.
+                    Eu li e concordo com os <a href="#" className="font-medium text-secondary dark:text-blue-400 hover:underline">Termos de Uso</a> e a <a href="#" className="font-medium text-secondary dark:text-blue-400 hover:underline">Política de Privacidade</a>.
                 </span>
             </label>
         </div>

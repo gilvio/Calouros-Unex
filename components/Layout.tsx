@@ -21,8 +21,6 @@ const navItemsConfig = [
     { page: Page.Map, icon: <MapPinIcon />, text: "Mapa" },
 ];
 
-// FIX: Changed icon prop type from React.ReactNode to React.ReactElement for better type safety with React.cloneElement.
-// FIX: Corrected icon prop type to specify that it accepts a `className` prop, resolving an error with `React.cloneElement`.
 const NavItem: React.FC<{ page: Page; currentPage: Page; onNavClick: (page: Page) => void; icon: React.ReactElement<{ className?: string }>; text: string; isMobile?: boolean; isCollapsed?: boolean }> = ({ page, currentPage, onNavClick, icon, text, isMobile = false, isCollapsed = false }) => {
   const isActive = currentPage === page;
   
@@ -35,7 +33,7 @@ const NavItem: React.FC<{ page: Page; currentPage: Page; onNavClick: (page: Page
   const layoutClasses = isMobile ? mobileClasses : (isCollapsed ? desktopCollapsedClasses : desktopExpandedClasses);
   
   const activeClasses = 'bg-secondary text-white';
-  const inactiveClasses = 'text-gray-600 hover:bg-neutral-light hover:text-neutral-dark';
+  const inactiveClasses = 'text-gray-600 dark:text-gray-300 hover:bg-neutral-light dark:hover:bg-neutral-700 hover:text-neutral-dark dark:hover:text-white';
   
   return (
     <button onClick={() => onNavClick(page)} className={`${baseClasses} ${layoutClasses} ${isActive ? activeClasses : inactiveClasses}`} title={text}>
@@ -56,13 +54,13 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ isCollapsed, currentPag
     const logoSrc = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgcng9IjMwIiBmaWxsPSIjMDA1NUE0Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iODAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSI+VVg8L3RleHQ+PC9zdmc+";
 
     return (
-        <div className="flex flex-col h-full bg-white border-r border-gray-200">
-            <div className={`p-4 border-b flex items-center gap-3 ${isCollapsed ? 'justify-center' : 'justify-start'}`} style={{ minHeight: '69px' }}>
+        <div className="flex flex-col h-full bg-white dark:bg-neutral-800 border-r border-gray-200 dark:border-gray-700">
+            <div className={`p-4 border-b border-gray-200 dark:border-gray-700 flex items-center gap-3 ${isCollapsed ? 'justify-center' : 'justify-start'}`} style={{ minHeight: '69px' }}>
                 <img src={logoSrc} alt="UNEX Logo" className="w-8 h-8 flex-shrink-0" />
                 {!isCollapsed && (
                     <div className="whitespace-nowrap overflow-hidden">
-                        <h1 className="text-2xl font-bold text-primary">UNEX</h1>
-                        <p className="text-sm text-gray-500">Calouros</p>
+                        <h1 className="text-2xl font-bold text-primary dark:text-blue-400">UNEX</h1>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Calouros</p>
                     </div>
                 )}
             </div>
@@ -71,7 +69,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ isCollapsed, currentPag
                     <NavItem key={item.page} {...item} currentPage={currentPage} onNavClick={onNavClick} isCollapsed={isCollapsed} />
                 ))}
             </nav>
-            <div className="p-2 border-t flex-shrink-0">
+            <div className="p-2 border-t border-gray-200 dark:border-gray-700 flex-shrink-0">
                 <NavItem 
                     page={Page.Profile} 
                     currentPage={currentPage} 
@@ -82,7 +80,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ isCollapsed, currentPag
                 />
                 <button 
                     onClick={onLogout} 
-                    className={`w-full mt-2 flex items-center rounded-lg p-3 text-sm font-medium text-gray-600 hover:bg-neutral-light hover:text-neutral-dark transition-colors ${isCollapsed ? 'justify-center' : 'justify-start space-x-3'}`}
+                    className={`w-full mt-2 flex items-center rounded-lg p-3 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-neutral-light dark:hover:bg-neutral-700 hover:text-neutral-dark dark:hover:text-white transition-colors ${isCollapsed ? 'justify-center' : 'justify-start space-x-3'}`}
                     title="Sair"
                 >
                     <ArrowLeftOnRectangleIcon className="w-6 h-6 flex-shrink-0" />
@@ -103,7 +101,7 @@ export const Layout: React.FC<LayoutProps> = ({ user, currentPage, onNavClick, o
   };
 
   return (
-    <div className="flex h-screen bg-neutral-light font-sans">
+    <div className="flex h-screen bg-neutral-light dark:bg-neutral-900 font-sans transition-colors duration-200">
       {/* Mobile Sidebar (off-canvas) */}
       <div className={`fixed inset-0 z-40 transform transition-transform md:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <SidebarContent isCollapsed={false} currentPage={currentPage} onNavClick={handleNav} onLogout={onLogout} />
@@ -111,29 +109,29 @@ export const Layout: React.FC<LayoutProps> = ({ user, currentPage, onNavClick, o
       {isSidebarOpen && <div className="fixed inset-0 z-30 bg-black opacity-50 md:hidden" onClick={() => setIsSidebarOpen(false)}></div>}
 
       {/* Desktop Sidebar */}
-      <aside className={`hidden md:block flex-shrink-0 bg-white transition-all duration-300 ${isSidebarCollapsed ? 'w-20' : 'w-64'}`}>
+      <aside className={`hidden md:block flex-shrink-0 bg-white dark:bg-neutral-800 transition-all duration-300 ${isSidebarCollapsed ? 'w-20' : 'w-64'}`}>
          <SidebarContent isCollapsed={isSidebarCollapsed} currentPage={currentPage} onNavClick={handleNav} onLogout={onLogout} />
       </aside>
 
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="flex items-center justify-between p-4 bg-white border-b border-gray-200 flex-shrink-0">
+        <header className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
             <div className="flex items-center">
                 {/* Mobile Menu Button */}
-                <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="md:hidden mr-4 text-gray-600">
+                <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="md:hidden mr-4 text-gray-600 dark:text-gray-300">
                     {isSidebarOpen ? <XMarkIcon className="w-6 h-6"/> : <Bars3Icon className="w-6 h-6"/>}
                 </button>
                 {/* Desktop Menu Button */}
-                <button onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} className="hidden md:block mr-4 text-gray-600">
+                <button onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} className="hidden md:block mr-4 text-gray-600 dark:text-gray-300">
                     <Bars3Icon className="w-6 h-6"/>
                 </button>
-                <h2 className="text-xl font-bold text-neutral-dark">{PAGE_CONFIG[currentPage].name}</h2>
+                <h2 className="text-xl font-bold text-neutral-dark dark:text-white">{PAGE_CONFIG[currentPage].name}</h2>
             </div>
           <div className="flex items-center space-x-4">
             <img src={user.avatarUrl} alt={user.name} className="w-10 h-10 rounded-full" />
             <div>
-                <p className="font-semibold text-neutral-dark">{user.name}</p>
-                <p className="text-sm text-gray-500 capitalize">{user.role}</p>
+                <p className="font-semibold text-neutral-dark dark:text-white">{user.name}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 capitalize">{user.role}</p>
             </div>
           </div>
         </header>
@@ -144,7 +142,7 @@ export const Layout: React.FC<LayoutProps> = ({ user, currentPage, onNavClick, o
         </main>
 
         {/* Bottom Navigation */}
-        <nav className="md:hidden grid grid-cols-5 gap-1 p-2 bg-white border-t border-gray-200">
+        <nav className="md:hidden grid grid-cols-5 gap-1 p-2 bg-white dark:bg-neutral-800 border-t border-gray-200 dark:border-gray-700">
           {navItemsConfig.slice(0, 5).map(item => (
              <NavItem key={item.page} {...item} currentPage={currentPage} onNavClick={onNavClick} isMobile={true}/>
           ))}
